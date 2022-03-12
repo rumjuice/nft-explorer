@@ -1,0 +1,13 @@
+{
+  "name": "nft-data",
+  "version": "0.0.1",
+  "description": "NFT Data Challenge",
+  "main": "index.js",
+  "author": "Ramdhani",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "ethers": "^5.6.0"
+  }
+}
