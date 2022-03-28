@@ -1,3 +1,5 @@
+BEGIN;
+
 --Add the TimescaleDB extension
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 
@@ -10,9 +12,9 @@ CREATE TABLE "block"(
     PRIMARY KEY (block_number)
 );
 
---Schema for transactions table
-DROP TABLE IF EXISTS "transactions";
-CREATE TABLE "transactions"(
+--Schema for transaction table
+DROP TABLE IF EXISTS "transaction";
+CREATE TABLE "transaction"(
     timestamp       TIMESTAMP NOT NULL,
     block_number   INT NOT NULL,
     contract_address   VARCHAR (42),
@@ -25,4 +27,6 @@ CREATE TABLE "transactions"(
 );
 
 --Timescale specific statements to create hypertables for better performance
-SELECT create_hypertable('transactions', 'timestamp');
+SELECT create_hypertable('transaction', 'timestamp');
+
+COMMIT;

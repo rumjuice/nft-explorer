@@ -10,7 +10,7 @@ const provider = new providers.InfuraProvider("homestead", {
   projectSecret: process.env.SECRET,
 });
 
-// Hash map of block timestamp
+// Hash map of the block timestamp
 let blockTimestamp = {};
 
 async function getBlock(from, to) {
@@ -32,12 +32,12 @@ async function getLogs(from, to) {
   const tx = await provider.getLogs({
     fromBlock: from,
     toBlock: to,
-    // Transfer event
+    // Filter topics of transfer events
     topics: [
       "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
     ],
   });
-
+  // Filter ERC721 events
   const nft = tx.filter((t) => t.topics.length === 4);
 
   for (const n of nft) {

@@ -19,7 +19,7 @@ const insertBlock = (block_number, hash, timestamp) => {
 
 const insertTx = (tx, bt) => {
   return new Promise((resolve, reject) => {
-    db("transactions")
+    db("transaction")
       .insert({
         timestamp: bt[tx.blockNumber],
         block_number: tx.blockNumber,
@@ -37,7 +37,7 @@ const insertTx = (tx, bt) => {
 
 const getNFT = (address) => {
   return new Promise((resolve, reject) => {
-    db("transactions")
+    db("transaction")
       .select({
         contract: "contract_address",
         owner: "tx_to",
