@@ -12,12 +12,9 @@ const insertBlock = (block_number, hash, timestamp) => {
         hash,
         timestamp,
       })
-      .then((id) => resolve(id))
+      .then(() => resolve())
       .catch((e) => reject(e));
   });
-
-  // const json = JSON.stringify(block);
-  // fs.writeFileSync("block-data.json", json);
 };
 
 const insertTx = (tx, bt) => {
@@ -33,11 +30,27 @@ const insertTx = (tx, bt) => {
         tx_to: sliceHex(tx.topics[2]),
         token_id: Number(tx.topics[3]),
       })
-      .then((id) => resolve(id))
+      .then(() => resolve())
+      .catch((e) => reject(e));
+  });
+};
+
+const getNFT = (address) => {
+  return new Promise((resolve, reject) => {
+    db("transactions")
+      .select({
+        contract: "contract_address",
+        owner: "tx_to",
+        id: "token_id",
+      })
+      .where({
+        contract_address: address,
+      })
+      .then((d) => resolve(d))
       .catch((e) => reject(e));
   });
 };
 
 const closeConnection = () => db.destroy();
 
-export { insertBlock, insertTx, closeConnection };
+export { insertBlock, insertTx, getNFT, closeConnection };
