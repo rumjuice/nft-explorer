@@ -26,7 +26,7 @@ CREATE TABLE "transaction"(
     CONSTRAINT fk_block_number FOREIGN KEY (block_number) REFERENCES block (block_number)
 );
 
---Timescale specific statements to create hypertables for better performance
+--Timescale specific statements to create hypertable
 SELECT create_hypertable('transaction', 'timestamp');
 
 COMMIT;

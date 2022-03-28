@@ -5,9 +5,9 @@ export default {
   development: {
     client: "pg",
     connection: {
-      host: "127.0.0.1",
+      host: "db",
       user: "postgres",
-      password: "postgres",
+      password: "nft",
       database: "nft_data",
       charset: "utf8",
     },
