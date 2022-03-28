@@ -20,8 +20,7 @@ CREATE TABLE "transactions"(
     tx_hash   VARCHAR (66),
     tx_from      VARCHAR (42),
     tx_to VARCHAR (42),
-    token_id   INT,
-    PRIMARY KEY (timestamp),
+    token_id   NUMERIC,
     CONSTRAINT fk_block_number FOREIGN KEY (block_number) REFERENCES block (block_number)
 );
 

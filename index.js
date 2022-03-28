@@ -1,19 +1,14 @@
-import { providers, utils } from "ethers";
-import fs from "fs";
+import { getBlock, getLogs } from "./handlers/blockchain.js";
+import { closeConnection } from "./handlers/db.js";
 
-//  Use api key for prod
-const provider = new providers.InfuraProvider("homestead", {
-  projectId: process.env.PROJECT_ID,
-  projectSecret: process.env.SECRET,
-});
-const decoder = new utils.AbiCoder();
+const startBlock = 14348850;
+const endBlock = 14348860;
 
-async function getBlockDetail() {
-  // block 14348850 to 14348860
-  const block = await provider.getBlock(14348850);
-  // const block = await provider.getBlockWithTransactions(14348850);
-  console.log(block);
-}
+await getBlock(startBlock, endBlock);
+await getLogs(startBlock, endBlock);
+// await getTribes()
+closeConnection();
+
 async function getTransactionDetail() {
   const tx = await provider.getTransaction(
     "0x6a88d3b241e09f011947bcad4b2b5fae9e4080c8ff6a5ae9c6d76e0d11c7ece1"
@@ -40,23 +35,6 @@ async function getTransactionReceipt() {
     "0x0000000000000000000000000000000000000000000000000000000000000c52",
   ];
 }
-async function getLogs() {
-  const tx = await provider.getLogs({
-    // fromBlock: 14348850,
-    // toBlock: 14348860,
-    blockHash:
-      "0xf7d0a59f3cb515a97b28fc731028929f40da66f954bbc35b23089dabffa5f484",
-    topics: [
-      "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-    ],
-  });
-  // console.log(tx.filter((t) => t.topics.length === 4));
-  const nft = tx.filter((t) => t.topics.length === 4);
-  const json = JSON.stringify(nft);
-  fs.writeFileSync("nft-data.json", json);
-}
 
-// getBlockDetail();
-getTransactionDetail();
+// getTransactionDetail();
 // getTransactionReceipt();
-// getLogs();
